@@ -7,7 +7,8 @@
 
       <v-spacer></v-spacer>
 
-      <span>Username</span>
+      <span>{{$store.getters["username"] | capitalize}}</span>
+
       <v-btn icon @click="onClickLogOff">
         <v-icon>mdi-export</v-icon>
       </v-btn>
@@ -23,6 +24,11 @@ export default {
       return "1.0"
     },
   },
+  methods: {
+    onClickLogOff(){
+      this.$store.dispatch('doLogout')
+    }
+  }
 };
 </script>
 
