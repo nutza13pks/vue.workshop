@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$router.push("/stock")
+      this.$router.push("/stock").catch(()=>{});
       this.$store.dispatch({
         type:"doLogin",
         username: this.account.username,

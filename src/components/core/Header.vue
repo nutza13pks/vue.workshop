@@ -18,11 +18,11 @@
 
 <script>
 export default {
-  name: "header",
+  name: "headers",
   computed: {
     version() {
       return "1.0"
-    },
+    }
   },
   methods: {
     onClickLogOff(){
