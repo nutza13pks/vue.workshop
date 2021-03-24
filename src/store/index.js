@@ -37,8 +37,8 @@ export default new Vuex.Store({
         commit("SET_USERNAME", username);
       }
     },
-    doLogin({ commit, dispatch }, { username, password }) {
-      let result = api.login({ username, password });
+    async doLogin({ commit, dispatch }, { username, password }) {
+      let result = await api.login({ username, password });
       if (result == true) {
         commit("SET_LOGGED_IN");
         commit("SET_USERNAME", username);

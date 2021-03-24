@@ -39,7 +39,14 @@
 </template>
 
 <script>
+import api from "@/services/api";
+
 export default {
+  mounted() {
+    if (api.isLoggedIn()) {
+      this.$router.push("/stock");
+    }
+  },
   data() {
     return {
       isShowPassword:false,
@@ -56,7 +63,7 @@ export default {
         type:"doLogin",
         username: this.account.username,
         password: this.account.password
-      })
+      });
     }
   }
 }
