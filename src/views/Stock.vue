@@ -91,7 +91,7 @@
               ></v-img>
             </td>
             <td>{{ item.name }}</td>
-            <td>{{ item.price | currency("0") }}</td>
+            <td>{{ item.price | currency("") }}</td>
             <td>{{ item.stock | number("0, 0") }} pcs.</td>
             <td>
               <v-icon class="mr-2" @click="editItem(item)"> edit </v-icon>
