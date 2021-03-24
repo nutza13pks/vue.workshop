@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- Summary Section -->
-    <v-row>
+    <v-row style="margin-bottom: 1px;">
       <v-col lg="3" md="6" sm="12" cols="12">
         <StockCard
           title="TOTAL"
@@ -101,6 +101,24 @@
           </tr>
         </template>
       </v-data-table>
+
+      <v-dialog v-model="confirmDeleteDlg" max-width="290">
+        <v-card>
+          <v-card-title class="headline">Confirm Delete</v-card-title>
+
+          <v-card-text class="body">
+            Are you sure to delete this product? You cannot restore it after
+            clicking confirm.
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text @click="confirmDeleteDlg = false"> Cancel </v-btn>
+
+            <v-btn color="error" text @click="confirmDelete"> Confirm </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-card>
   </v-container>
 </template>
@@ -114,6 +132,8 @@ export default {
   data() {
     return {
       search: "",
+      selectedProductId: "",
+      confirmDeleteDlg: false,
       mDataArray: [],
       headers: [
         {
@@ -134,15 +154,26 @@ export default {
     StockCard,
   },
   async mounted() {
-    console.log("Stock components is running..");
-    let result = await api.getProducts()
-    this.mDataArray = result.data
+    this.loadProducts();
   },
   methods: {
-      editItem(item){
-        this.$router.push(`/stock-edit/${item.id}`);
-      }
-    }
+    editItem(item) {
+      this.$router.push(`/stock-edit/${item.id}`);
+    },
+    deleteItem(item) {
+      this.selectedProductId = item.id;
+      this.confirmDeleteDlg = true;
+    },
+    async confirmDelete() {
+      await api.deleteProduct(this.selectedProductId);
+      this.confirmDeleteDlg = false;
+      this.loadProducts();
+    },
+    async loadProducts() {
+      let result = await api.getProducts();
+      this.mDataArray = result.data;
+    },
+  },
 };
 </script>
 

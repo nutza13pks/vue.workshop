@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import api from "@/services/api";
+
 export default {
   name: "stock-create",
   data: () => ({
@@ -79,8 +81,15 @@ export default {
       // for upload
       this.product.image = event.target.files[0];
     },
-    submit() {
-      alert(JSON.stringify(this.product));
+    async submit() {
+      let formData = new FormData();
+      const { name, price, stock } = this.product;
+      formData.append("name", name);
+      formData.append("stock", stock);
+      formData.append("price", price);
+      formData.append("image", this.product.image);
+      await api.addProduct(formData);
+      this.$router.back();
     },
     cancel() {
       this.$router.back();

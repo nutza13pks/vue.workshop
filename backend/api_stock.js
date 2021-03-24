@@ -34,6 +34,19 @@ router.get("/product", async (req, res) => {
   res.json(result);
 });
 
+router.get("/product/id/:id", async (req, res)=>{
+  try{
+      let result = await product.findOne({where:{id: req.params.id}})
+      if (result){
+          res.json(result)
+      }else{
+          res.json({});
+      }
+  }catch(error){
+      res.json({});
+  }
+})
+
 router.post("/product", (req, res)=>{
   try{
     const form = new formidable.IncomingForm();
