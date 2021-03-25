@@ -3,7 +3,7 @@
     <v-app-bar app color="primary" dense dark>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>CMStock Workshop V{{ version }}</v-toolbar-title>
+      <v-toolbar-title>{{ title }} V{{ version }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -20,8 +20,11 @@
 export default {
   name: "headers",
   computed: {
-    version() {
-      return "1.0"
+    version(){
+      return process.env.VUE_APP_VERSION
+    },
+    title(){
+      return process.env.VUE_APP_TITLE
     }
   },
   methods: {
